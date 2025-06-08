@@ -21,6 +21,8 @@
     <description>多模块Java面试示范项目</description>
 
     <modules>
+        <module>demo-design-pattern</module>
+        <module>demo-redis-cache</module>
     </modules>
 
     <url>https://github.com/yourname/java-interview-demo</url>
