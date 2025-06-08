@@ -23,6 +23,7 @@
     <modules>
         <module>demo-design-pattern</module>
         <module>demo-redis-cache</module>
+        <module>demo-mq-accumulation</module>
     </modules>
 
     <url>https://github.com/yourname/java-interview-demo</url>
