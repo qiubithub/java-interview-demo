@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiubithub.ddd.infrastructure.mapper.OrderItemMapper">
+    
+    <resultMap id="BaseResultMap" type="com.qiubithub.ddd.domain.model.entity.OrderItem">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="product_id" property="productId" />
+        <result column="product_name" property="productName" />
+        <result column="product_image" property="productImage" />
+        <result column="quantity" property="quantity" />
+        
+        <!-- Money 值对象映射 -->
+        <association property="unitPrice" javaType="com.qiubithub.ddd.domain.model.valueobject.Money">
+            <result column="unit_price_amount" property="amount" />
+            <result column="unit_price_currency" property="currencyCode" />
+        </association>
+        
+        <association property="subtotal" javaType="com.qiubithub.ddd.domain.model.valueobject.Money">
+            <result column="subtotal_amount" property="amount" />
+            <result column="subtotal_currency" property="currencyCode" />
+        </association>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, order_id, product_id, product_name, product_image,
+        unit_price_amount, unit_price_currency, quantity,
+        subtotal_amount, subtotal_currency
+    </sql>
+    
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO t_order_item (
+            id, order_id, product_id, product_name, product_image,
+            unit_price_amount, unit_price_currency, quantity,
+            subtotal_amount, subtotal_currency
+        ) VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.id}, #{item.orderId}, #{item.productId}, #{item.productName}, #{item.productImage},
+                #{item.unitPrice.amount}, #{item.unitPrice.currencyCode}, #{item.quantity},
+                #{item.subtotal.amount}, #{item.subtotal.currencyCode}
+            )
+        </foreach>
+    </insert>
+    
+    <update id="update" parameterType="com.qiubithub.ddd.domain.model.entity.OrderItem">
+        UPDATE t_order_item
+        SET 
+            product_id = #{productId},
+            product_name = #{productName},
+            product_image = #{productImage},
+            unit_price_amount = #{unitPrice.amount},
+            unit_price_currency = #{unitPrice.currencyCode},
+            quantity = #{quantity},
+            subtotal_amount = #{subtotal.amount},
+            subtotal_currency = #{subtotal.currencyCode}
+        WHERE id = #{id}
+    </update>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order_item
+        WHERE id = #{id}
+    </select>
+    
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order_item
+        WHERE order_id = #{orderId}
+    </select>
+    
+    <delete id="deleteById">
+        DELETE FROM t_order_item WHERE id = #{id}
+    </delete>
+    
+    <delete id="deleteByOrderId">
+        DELETE FROM t_order_item WHERE order_id = #{orderId}
+    </delete>
+</mapper>
