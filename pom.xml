@@ -25,6 +25,7 @@
         <module>demo-redis-cache</module>
         <module>demo-mq-accumulation</module>
         <module>demo-kafka</module>
+        <module>demo-elasticsearch</module>
         <module>demo-java17-features</module>
         <module>demo-ddd</module>
     </modules>

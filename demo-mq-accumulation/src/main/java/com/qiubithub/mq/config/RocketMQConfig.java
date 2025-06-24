@@ -5,6 +5,7 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,4 +29,20 @@ public class RocketMQConfig {
     // 定义标签常量
     public static final String ORDER_TAG_NORMAL = "normal";
     public static final String ORDER_TAG_PRIORITY = "priority";
+    
+    /**
+     * 配置RocketMQ生产者
+     */
+    @Bean
+    @MQCondition
+    public DefaultMQProducer defaultMQProducer() throws MQClientException {
+        DefaultMQProducer producer = new DefaultMQProducer("producer-group");
+        producer.setNamesrvAddr(nameServer);
+        producer.setVipChannelEnabled(false);
+        producer.setRetryTimesWhenSendAsyncFailed(3);
+        producer.setRetryTimesWhenSendFailed(3);
+        producer.setSendMsgTimeout(3000);
+        producer.start();
+        return producer;
+    }
 }
