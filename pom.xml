@@ -28,6 +28,8 @@
         <module>demo-elasticsearch</module>
         <module>demo-java17-features</module>
         <module>demo-ddd</module>
+        <module>demo-postgresql</module>
+        <module>demo-mongodb</module>
     </modules>
 
     <url>https://github.com/yourname/java-interview-demo</url>

@@ -1,0 +1,18 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: demo-mongodb
+  
+  # MongoDB配置
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/mongodb_demo
+      auto-index-creation: true
+
+# 日志配置
+logging:
+  level:
+    com.qiubithub.mongodb: debug
+    org.springframework.data.mongodb.core.MongoTemplate: debug
