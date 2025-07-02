@@ -30,6 +30,7 @@
         <module>demo-ddd</module>
         <module>demo-postgresql</module>
         <module>demo-mongodb</module>
+        <module>demo-thread-pool</module>
     </modules>
 
     <url>https://github.com/yourname/java-interview-demo</url>

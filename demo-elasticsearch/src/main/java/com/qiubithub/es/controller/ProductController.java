@@ -28,7 +28,7 @@ public class ProductController {
             return ResponseEntity.ok(product);
         } else {
             return ResponseEntity.notFound().build();
-        }
+    }
     }
 
     @DeleteMapping("/{id}")
@@ -42,25 +42,25 @@ public class ProductController {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
-    
+
     @GetMapping("/search/name")
     public ResponseEntity<List<Product>> findByName(@RequestParam String name) {
         List<Product> products = productService.findByName(name);
         return ResponseEntity.ok(products);
     }
-    
+
     @GetMapping("/search/keyword")
     public ResponseEntity<List<Product>> findByNameContaining(@RequestParam String keyword) {
         List<Product> products = productService.findByNameContaining(keyword);
         return ResponseEntity.ok(products);
     }
-    
+
     @GetMapping("/search/category")
     public ResponseEntity<List<Product>> findByCategory(@RequestParam String category) {
         List<Product> products = productService.findByCategory(category);
         return ResponseEntity.ok(products);
     }
-    
+
     @GetMapping("/search/price")
     public ResponseEntity<List<Product>> findByPriceRange(
             @RequestParam double minPrice, 
@@ -68,7 +68,7 @@ public class ProductController {
         List<Product> products = productService.findByPriceRange(minPrice, maxPrice);
         return ResponseEntity.ok(products);
     }
-    
+
     @GetMapping("/search/brand")
     public ResponseEntity<List<Product>> findByBrand(@RequestParam String brand) {
         List<Product> products = productService.findByBrand(brand);

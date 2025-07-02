@@ -75,7 +75,7 @@ public class ProductService {
             GetResponse response = restHighLevelClient.get(request, RequestOptions.DEFAULT);
             if (response.isExists()) {
                 return objectMapper.readValue(response.getSourceAsString(), Product.class);
-            }
+    }
         } catch (IOException e) {
             log.error("获取产品失败", e);
         }
@@ -193,7 +193,7 @@ public class ProductService {
             log.error("根据价格范围查找产品失败", e);
             return Collections.emptyList();
         }
-    }
+        }
 
     /**
      * 根据品牌查找产品
@@ -214,7 +214,7 @@ public class ProductService {
             return Collections.emptyList();
         }
     }
-    
+
     /**
      * 从响应中提取产品列表
      */
@@ -227,7 +227,7 @@ public class ProductService {
                 products.add(product);
             } catch (IOException e) {
                 log.error("解析产品数据失败", e);
-            }
+        }
         }
         return products;
     }

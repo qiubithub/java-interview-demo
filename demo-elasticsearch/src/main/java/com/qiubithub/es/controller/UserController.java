@@ -28,7 +28,7 @@ public class UserController {
             return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.notFound().build();
-        }
+    }
     }
 
     @DeleteMapping("/{id}")
@@ -42,19 +42,19 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-    
+
     @GetMapping("/search/username")
     public ResponseEntity<List<User>> findByUsername(@RequestParam String username) {
         List<User> users = userService.findByUsername(username);
         return ResponseEntity.ok(users);
     }
-    
+
     @GetMapping("/search/email")
     public ResponseEntity<List<User>> findByEmail(@RequestParam String email) {
         List<User> users = userService.findByEmail(email);
         return ResponseEntity.ok(users);
     }
-    
+
     @GetMapping("/search/age")
     public ResponseEntity<List<User>> findByAgeRange(
             @RequestParam int minAge, 
@@ -62,7 +62,7 @@ public class UserController {
         List<User> users = userService.findByAgeRange(minAge, maxAge);
         return ResponseEntity.ok(users);
     }
-    
+
     @GetMapping("/search/gender")
     public ResponseEntity<List<User>> findByGender(@RequestParam String gender) {
         List<User> users = userService.findByGender(gender);

@@ -62,7 +62,7 @@ public class UserService {
      */
     public void batchSaveUsers(List<User> users) {
         users.forEach(this::saveUser);
-    }
+            }
 
     /**
      * 根据ID获取用户
@@ -194,7 +194,7 @@ public class UserService {
             return Collections.emptyList();
         }
     }
-    
+
     /**
      * 从响应中提取用户列表
      */
@@ -207,7 +207,7 @@ public class UserService {
                 users.add(user);
             } catch (IOException e) {
                 log.error("解析用户数据失败", e);
-            }
+        }
         }
         return users;
     }

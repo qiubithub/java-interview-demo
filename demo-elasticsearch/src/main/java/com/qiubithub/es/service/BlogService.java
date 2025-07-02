@@ -76,7 +76,7 @@ public class BlogService {
             GetResponse response = restHighLevelClient.get(request, RequestOptions.DEFAULT);
             if (response.isExists()) {
                 return objectMapper.readValue(response.getSourceAsString(), Blog.class);
-            }
+    }
         } catch (IOException e) {
             log.error("获取博客失败", e);
         }
@@ -232,7 +232,7 @@ public class BlogService {
             log.error("查找已发布的博客失败", e);
             return Collections.emptyList();
         }
-    }
+        }
 
     /**
      * 查找热门博客
@@ -255,7 +255,7 @@ public class BlogService {
             return Collections.emptyList();
         }
     }
-    
+
     /**
      * 从响应中提取博客列表
      */
