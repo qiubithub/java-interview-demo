@@ -31,6 +31,7 @@
         <module>demo-postgresql</module>
         <module>demo-mongodb</module>
         <module>demo-thread-pool</module>
+        <module>demo-langchain4j</module>
     </modules>
 
     <url>https://github.com/yourname/java-interview-demo</url>

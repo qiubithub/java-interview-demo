@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class OrderController {
     public OrderController(OrderApplicationService orderApplicationService) {
         this.orderApplicationService = orderApplicationService;
     }
-    
+
     /**
      * 创建订单
      *
