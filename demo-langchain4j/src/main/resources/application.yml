@@ -1,0 +1,11 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: demo-langchain4j
+
+openai:
+  api: #这里用的极客智坊这种第三方中转AI API 所以需要base-url
+    key: sk-raJgMFAJuSVQ8sbDklgfO2F9SwfJv7oSWYA84gyjDQxQP43Y
+    base-url: https://geekai.co/api/v1

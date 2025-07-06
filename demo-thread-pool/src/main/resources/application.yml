@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /demo
+
+spring:
+  application:
+    name: demo-thread-pool
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      timeout: 10000
+  redisson:
+    config:
+      singleServerConfig:
+        address: redis://127.0.0.1:6379
+        database: 1
+        connectionTimeout: 10000
+        connectionMinimumIdleSize: 4
+        connectionPoolSize: 8
+
+logging:
+  level:
+    com.qiubithub.javainterview.threadpool: debug
+    org.springframework: info

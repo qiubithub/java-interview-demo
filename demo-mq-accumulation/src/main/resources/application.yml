@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: demo-mq-accumulation
+
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: demo-producer-group
+    send-message-timeout: 3000
+    retry-times-when-send-failed: 3
+    retry-times-when-send-async-failed: 3
+    max-message-size: 4096
+  consumer:
+    pull-batch-size: 10  # 一次拉取消息的最大数量
+
+# 添加自定义配置，用于控制是否启用RocketMQ功能
+app:
+  mq:
+    enabled: false  # 默认禁用RocketMQ相关功能，避免因RocketMQ不可用导致应用启动失败

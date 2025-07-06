@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain4j 演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .chat-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .input-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #message {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #chat-history {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .user-message {
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .ai-message {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>LangChain4j 演示</h1>
+    
+    <div class="chat-container">
+        <h2>与 AI 聊天</h2>
+        <div id="chat-history"></div>
+        <div class="input-container">
+            <input type="text" id="message" placeholder="在这里输入你的消息...">
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const messageInput = document.getElementById('message');
+
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'user-message' : 'ai-message';
+            
+            // 将 markdown 代码块转换为 HTML
+            const formattedText = text.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, language, code) {
+                return `<pre><code>${code}</code></pre>`;
+            });
+            
+            messageDiv.innerHTML = formattedText;
+            chatHistory.appendChild(messageDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+            
+            // 将用户消息添加到聊天
+            addMessage(message, true);
+            messageInput.value = '';
+            
+            // 发送请求到服务器
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 将 AI 响应添加到聊天
+                addMessage(data.response, false);
+            })
+            .catch(error => {
+                console.error('错误:', error);
+                addMessage('错误: 无法从服务器获取响应。', false);
+            });
+        }
+
+        // 允许使用 Enter 键发送消息
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

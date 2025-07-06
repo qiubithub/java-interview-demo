@@ -1,0 +1,38 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: demo-kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 生产者配置
+      acks: 1                     # 确认级别，0表示不确认，1表示leader确认，all表示所有副本确认
+      retries: 3                  # 重试次数
+      batch-size: 16384           # 批次大小
+      buffer-memory: 33554432     # 缓冲区大小
+      compression-type: snappy    # 压缩类型：none, gzip, snappy, lz4, zstd
+    consumer:
+      group-id: demo-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 消费者配置
+      auto-offset-reset: earliest # 当没有初始偏移量或当前偏移量在服务器上不存在时的重置策略
+      enable-auto-commit: true    # 是否自动提交偏移量
+      auto-commit-interval: 1000  # 自动提交偏移量的间隔(ms)
+      max-poll-records: 500       # 一次拉取的最大记录数
+    listener:
+      concurrency: 3              # 消费者线程数
+      ack-mode: manual_immediate  # 手动提交模式
+      
+# 自定义Kafka主题配置
+app:
+  kafka:
+    topics:
+      order-topic: order-topic    # 订单主题
+      user-topic: user-topic      # 用户主题
+      notification-topic: notification-topic  # 通知主题
+    enabled: false                # 是否启用Kafka，设置为false可在Kafka不可用时禁用相关功能

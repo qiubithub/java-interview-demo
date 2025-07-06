@@ -1,0 +1,50 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: demo-elasticsearch
+  elasticsearch:
+    uris: http://localhost:9200
+    username: 
+    password: 
+    connection-timeout: 5s
+    socket-timeout: 30s
+
+# 应用配置
+app:
+  es:
+    enabled: true
+    indices:
+      user: users
+      product: products
+      blog: blogs
+    # 高级配置
+    advanced:
+      # 索引设置
+      index:
+        number_of_shards: 3
+        number_of_replicas: 1
+        max_result_window: 10000
+        refresh_interval: "1s"
+      # 搜索设置
+      search:
+        max_size: 10000
+        default_page_size: 10
+        highlight:
+          pre_tags: "<em>"
+          post_tags: "</em>"
+      # 分析器设置
+      analysis:
+        default_analyzer: "ik_max_word"
+        default_search_analyzer: "ik_smart"
+      # 模拟模式设置
+      simulation:
+        enabled: false
+        delay_ms: 100
+
+# 日志配置
+logging:
+  level:
+    com.qiubithub.es: debug
+    org.elasticsearch: info

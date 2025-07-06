@@ -1,0 +1,69 @@
+# Java Interview Tips and Common Questions
+
+## Core Java Concepts
+
+### Object-Oriented Programming
+Java is a pure object-oriented programming language. Key OOP concepts include:
+- Encapsulation: Bundling data and methods that operate on that data within a single unit (class).
+- Inheritance: Mechanism where a new class inherits properties and behaviors from an existing class.
+- Polymorphism: Ability of an object to take many forms, typically through method overloading and overriding.
+- Abstraction: Hiding implementation details and showing only functionality to users.
+
+### Java Memory Management
+- Stack: Stores local variables and method calls
+- Heap: Stores objects and JRE classes
+- Garbage Collection: Automatic memory management system that reclaims memory from objects no longer in use
+
+### Collections Framework
+- List: Ordered collection (ArrayList, LinkedList)
+- Set: Collection with no duplicate elements (HashSet, TreeSet)
+- Map: Key-value pairs (HashMap, TreeMap)
+- Queue: FIFO data structure (LinkedList, PriorityQueue)
+
+## Advanced Java Topics
+
+### Multithreading
+- Thread creation: Extending Thread class or implementing Runnable interface
+- Synchronization: Using synchronized keyword, locks, and atomic variables
+- Thread pool: ExecutorService for managing thread lifecycle
+- Concurrency utilities: CountDownLatch, CyclicBarrier, Semaphore
+
+### Java 8+ Features
+- Lambda expressions: Anonymous functions with concise syntax
+- Stream API: Processing sequences of elements
+- Optional: Container object for nullable values
+- Default methods: Interface methods with default implementation
+- Method references: Shorthand syntax for lambda expressions
+
+### Spring Framework
+- Dependency Injection: Inversion of Control principle
+- AOP: Aspect-Oriented Programming for cross-cutting concerns
+- Spring Boot: Simplified Spring application development
+- Spring Data: Data access abstraction
+- Spring Security: Authentication and authorization
+
+## Common Interview Questions
+
+1. What is the difference between == and equals() in Java?
+2. Explain the concept of immutability and its benefits.
+3. What are the differences between ArrayList and LinkedList?
+4. How does HashMap work internally?
+5. Explain the Singleton design pattern and its implementation.
+6. What is the difference between checked and unchecked exceptions?
+7. How does garbage collection work in Java?
+8. Explain the concept of thread safety.
+9. What are functional interfaces in Java 8?
+10. Describe the principles of RESTful API design.
+
+## Tips for Java Interviews
+
+1. Review core Java concepts thoroughly
+2. Practice coding problems on platforms like LeetCode
+3. Understand design patterns and their applications
+4. Be familiar with common algorithms and data structures
+5. Prepare examples from your previous projects
+6. Stay updated with the latest Java versions and features
+7. Practice explaining complex concepts in simple terms
+8. Be ready to discuss system design and architecture
+9. Understand testing methodologies (JUnit, Mockito)
+10. Research the company and tailor your preparation accordingly

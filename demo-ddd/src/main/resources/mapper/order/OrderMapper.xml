@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiubithub.ddd.infrastructure.mapper.OrderMapper">
+    
+    <resultMap id="BaseResultMap" type="com.qiubithub.ddd.domain.model.aggregate.Order">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="order_number" property="orderNumber" />
+        <result column="status" property="status" />
+        <result column="recipient_name" property="recipientName" />
+        <result column="recipient_phone" property="recipientPhone" />
+        <result column="created_time" property="createdTime" />
+        <result column="payment_time" property="paymentTime" />
+        <result column="shipping_time" property="shippingTime" />
+        <result column="completion_time" property="completionTime" />
+        <result column="cancellation_time" property="cancellationTime" />
+        
+        <!-- Money 值对象映射 -->
+        <association property="totalAmount" javaType="com.qiubithub.ddd.domain.model.valueobject.Money">
+            <result column="total_amount" property="amount" />
+            <result column="total_currency" property="currencyCode" />
+        </association>
+        
+        <!-- Address 值对象映射 -->
+        <association property="shippingAddress" javaType="com.qiubithub.ddd.domain.model.valueobject.Address">
+            <result column="shipping_province" property="province" />
+            <result column="shipping_city" property="city" />
+            <result column="shipping_district" property="district" />
+            <result column="shipping_street" property="street" />
+            <result column="shipping_detail" property="detail" />
+            <result column="shipping_zip_code" property="zipCode" />
+        </association>
+        
+        <!-- OrderItem 集合映射，使用单独的SQL查询 -->
+        <collection property="orderItems" column="id" select="com.qiubithub.ddd.infrastructure.mapper.OrderItemMapper.selectByOrderId" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, user_id, order_number, status,
+        total_amount, total_currency,
+        shipping_province, shipping_city, shipping_district, shipping_street, shipping_detail, shipping_zip_code,
+        recipient_name, recipient_phone,
+        created_time, payment_time, shipping_time, completion_time, cancellation_time
+    </sql>
+    
+    <insert id="insert" parameterType="com.qiubithub.ddd.domain.model.aggregate.Order">
+        INSERT INTO t_order (
+            id, user_id, order_number, status,
+            total_amount, total_currency,
+            shipping_province, shipping_city, shipping_district, shipping_street, shipping_detail, shipping_zip_code,
+            recipient_name, recipient_phone,
+            created_time, payment_time, shipping_time, completion_time, cancellation_time
+        ) VALUES (
+            #{id}, #{userId}, #{orderNumber}, #{status},
+            #{totalAmount.amount}, #{totalAmount.currencyCode},
+            #{shippingAddress.province}, #{shippingAddress.city}, #{shippingAddress.district}, 
+            #{shippingAddress.street}, #{shippingAddress.detail}, #{shippingAddress.zipCode},
+            #{recipientName}, #{recipientPhone},
+            #{createdTime}, #{paymentTime}, #{shippingTime}, #{completionTime}, #{cancellationTime}
+        )
+    </insert>
+    
+    <update id="update" parameterType="com.qiubithub.ddd.domain.model.aggregate.Order">
+        UPDATE t_order
+        SET 
+            user_id = #{userId},
+            order_number = #{orderNumber},
+            status = #{status},
+            total_amount = #{totalAmount.amount},
+            total_currency = #{totalAmount.currencyCode},
+            shipping_province = #{shippingAddress.province},
+            shipping_city = #{shippingAddress.city},
+            shipping_district = #{shippingAddress.district},
+            shipping_street = #{shippingAddress.street},
+            shipping_detail = #{shippingAddress.detail},
+            shipping_zip_code = #{shippingAddress.zipCode},
+            recipient_name = #{recipientName},
+            recipient_phone = #{recipientPhone},
+            payment_time = #{paymentTime},
+            shipping_time = #{shippingTime},
+            completion_time = #{completionTime},
+            cancellation_time = #{cancellationTime}
+        WHERE id = #{id}
+    </update>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order
+        WHERE id = #{id}
+    </select>
+    
+    <select id="selectByOrderNumber" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order
+        WHERE order_number = #{orderNumber}
+    </select>
+    
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order
+        WHERE user_id = #{userId}
+        ORDER BY created_time DESC
+    </select>
+    
+    <select id="selectByUserIdAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_order
+        WHERE user_id = #{userId} AND status = #{status}
+        ORDER BY created_time DESC
+    </select>
+    
+    <delete id="deleteById">
+        DELETE FROM t_order WHERE id = #{id}
+    </delete>
+</mapper>
