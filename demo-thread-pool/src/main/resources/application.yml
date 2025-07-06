@@ -6,17 +6,20 @@ server:
 spring:
   application:
     name: demo-thread-pool
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 1
-    timeout: 10000
-    lettuce:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      timeout: 10000
+  redisson:
+    config:
+      singleServerConfig:
+        address: redis://127.0.0.1:6379
+        database: 1
+        connectionTimeout: 10000
+        connectionMinimumIdleSize: 4
+        connectionPoolSize: 8
 
 logging:
   level:

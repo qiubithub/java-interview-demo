@@ -132,7 +132,7 @@ public class ThreadPoolController {
      */
     @GetMapping("/business/with-lock/{businessId}")
     public ResponseEntity<Map<String, Object>> processBusinessWithLock(@PathVariable String businessId) {
-        String result = businessService.processBusinessWithLock(businessId);
+        String result = businessService.purchaseMembershipWithLock(businessId);
         
         Map<String, Object> response = new HashMap<>(3);
         response.put("code", "SUCCESS");
@@ -150,7 +150,7 @@ public class ThreadPoolController {
      */
     @GetMapping("/business/without-lock/{businessId}")
     public ResponseEntity<Map<String, Object>> processBusinessWithoutLock(@PathVariable String businessId) {
-        String result = businessService.processBusinessWithoutLock(businessId);
+        String result = businessService.purchaseMembershipWithoutLock(businessId);
         
         Map<String, Object> response = new HashMap<>(3);
         response.put("code", "SUCCESS");
